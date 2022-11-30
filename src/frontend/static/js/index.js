@@ -1,4 +1,4 @@
-import { Application } from "./app.js";
+import { Application } from "./Application.js";
 
 console.log("JS is loaded!");
 
@@ -12,3 +12,5 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 });
+
+window.addEventListener("popstate", app.changeView());
