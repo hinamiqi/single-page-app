@@ -6,7 +6,7 @@ const app = new Application();
 
 document.addEventListener("DOMContentLoaded", () => {
     document.body.addEventListener("click", e => {
-        if (e.target.matches("[nav-link]")) {
+        if (e.target.matches("[data-link]")) {
             e.preventDefault();
             app.navigateTo(e.target);
         }

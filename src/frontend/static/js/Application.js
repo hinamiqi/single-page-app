@@ -15,10 +15,7 @@ export class Application {
 
     pathToRegex = path => new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
 
-    async changeView() {
+    changeView() {
         const view = this.router.route(location.pathname);
-        if (!view) return;
-        const html = view.html || await view.loadResources();
-        document.querySelector("#app").innerHTML = html;
     }
 }
