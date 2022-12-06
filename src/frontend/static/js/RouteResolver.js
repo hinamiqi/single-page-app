@@ -1,6 +1,7 @@
 import DashboardView from "./views/ApplicationView.js";
 import PostsView from "./views/PostsView.js"
-import SettingsView from "./views/SettingsView.js"
+import ContactsView from "./views/ContactsView.js"
+import AboutMeView from "./views/AboutMeView.js"
 
 // TODO Maybe that class is redundant (move to Application?)
 export class RouteResolver {
@@ -11,11 +12,11 @@ export class RouteResolver {
     currentView;
 
     constructor() {
-        // TODO Child view may have it's own childs?..
+        // TODO Child view may have it's own children?..
         this.routes = [
-            { path: "/", view: DashboardView },
+            { path: "/", view: DashboardView, child: AboutMeView },
             { path: "/posts", view: DashboardView, child: PostsView },
-            { path: "/settings", view: DashboardView, child: SettingsView },
+            { path: "/contacts", view: DashboardView, child: ContactsView },
         ];
     }
 

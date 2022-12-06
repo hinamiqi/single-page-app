@@ -8,7 +8,7 @@ export default class {
     constructor(templateName) {
         console.log('Load constructor of ' + templateName);
         this.templateName = templateName;
-        this.loadTemplate();
+        this.loadResources();
     }
 
     resources$(templateName) {
@@ -19,16 +19,13 @@ export default class {
                 if (!response.ok) {
                     throw new Error(`HTTP error: ${response.status}`);
                 }
-                return response.text();
-            })
-            .then((text) => {
-                this.html = text;
-                return text;
+                return response;
             });
     }
 
-    async loadTemplate() {
-        this.html = await this.resources$(this.templateName);
+    async loadResources() {
+        const resources = await this.resources$(this.templateName);
+        this.html = await resources.text();
         const element = document.querySelector("#" + this.templateName);
         if (element) {
             element.innerHTML = this.html;
