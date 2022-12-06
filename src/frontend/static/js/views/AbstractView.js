@@ -5,15 +5,29 @@ export default class {
 
     html;
 
-    constructor(templateName) {
-        console.log('Load constructor of ' + templateName);
-        this.templateName = templateName;
-        this.loadResources();
+    childRoute;
+
+    childView;
+
+    isParent;
+
+    isChild;
+
+    constructor(route) {
+        this.templateName = route.template;
+        this.isChild = route.isChild;
+        console.log("Loading constructor of " + this.templateName + " view");
+        this.loadResources(this.templateName);
+        if (route.child) {
+            this.isParent = true;
+            route.child.isChild = true;
+            this.childRoute = route.child;
+            this.childView = new route.child.view(route.child);
+        }
     }
 
     resources$(templateName) {
         if (!templateName) templateName = this.templateName;
-        console.log(`Start loading resourcses of ${templateName} view...`);
         return fetch(`${Environment.staticUrl}html/${templateName}.html`)
             .then((response) => {
                 if (!response.ok) {
@@ -23,12 +37,19 @@ export default class {
             });
     }
 
-    async loadResources() {
-        const resources = await this.resources$(this.templateName);
+    async loadResources(templateName) {
+        console.log(`Start loading resourcses of ${templateName} view...`);
+        const resources = await this.resources$(templateName);
         this.html = await resources.text();
-        const element = document.querySelector("#" + this.templateName);
+
+        if (this.isParent) {
+            this.html = this.html.replace(`<div id="child"></div>`, `<div id="${this.childRoute.template}"></div>`);
+        }
+
+        const element = document.querySelector("#" + templateName);
         if (element) {
             element.innerHTML = this.html;
         }
+        console.log(`Finishesd loading resourcses of ${templateName} view.`);
     }
 }

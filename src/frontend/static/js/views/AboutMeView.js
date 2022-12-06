@@ -1,7 +1,7 @@
 import AbstractView from "./AbstractView.js";
 
 export default class extends AbstractView {
-    constructor() {
-        super("about_me");
+    constructor(route) {
+        super(route);
     }
 }

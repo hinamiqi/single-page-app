@@ -1,31 +1,60 @@
-import DashboardView from "./views/ApplicationView.js";
+import ApplicationView from "./views/ApplicationView.js";
 import PostsView from "./views/PostsView.js"
 import ContactsView from "./views/ContactsView.js"
 import AboutMeView from "./views/AboutMeView.js"
 
-// TODO Maybe that class is redundant (move to Application?)
 export class RouteResolver {
     currentRoute;
 
     routes;
 
-    currentView;
-
     constructor() {
-        // TODO Child view may have it's own children?..
         this.routes = [
-            { path: "/", view: DashboardView, child: AboutMeView },
-            { path: "/posts", view: DashboardView, child: PostsView },
-            { path: "/contacts", view: DashboardView, child: ContactsView },
+            {
+                path: "/",
+                view: ApplicationView,
+                template: "application",
+                isParent: true,
+                child: {
+                    view: AboutMeView,
+                    template: "about_me",
+                    child: {//TODO Allow multiple childs.
+                        view: PostsView,
+                        template: "posts"
+                    }
+                }
+            },
+            {
+                path: "/posts",
+                view: ApplicationView,
+                template: "application",
+                isParent: true,
+                child: {
+                    view: PostsView,
+                    template: "posts"
+                }
+            },
+            {
+                path: "/contacts",
+                view: ApplicationView,
+                template: "application",
+                isParent: true,
+                child: {
+                    view: ContactsView,
+                    template: "contacts"
+                }
+            },
         ];
     }
 
-    route(url) {
-        this.currentRoute = url;
+    //TODO use RegExp to match URL's (with parameters)
+    pathToRegex = path => new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
+
+    resolveRoute(url) {
         let match = this.routes.find(r => location.pathname === r.path);
         if (!match) return;
 
-        this.currentView = new match.view(match.child);
-        return this.currentView;
+        this.currentRoute = url;
+        return match;
     }
 }
