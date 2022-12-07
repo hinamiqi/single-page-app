@@ -13,15 +13,24 @@ export default class {
 
     isChild;
 
+    params;
+
     constructor(route) {
         this.templateName = route.template;
         this.isChild = route.isChild;
+        this.parameters = route.parameters;
         console.log("Loading constructor of " + this.templateName + " view");
+        if (this.parameters) {
+            console.log("View " + this.templateName + " received parameters: ", this.parameters);
+        }
         this.loadResources(this.templateName);
         if (route.child) {
             this.isParent = true;
             route.child.isChild = true;
             this.childRoute = route.child;
+            if (this.parameters) {
+                route.child.parameters = this.parameters;
+            }
             this.childView = new route.child.view(route.child);
         }
     }

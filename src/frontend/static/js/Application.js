@@ -17,6 +17,7 @@ export class Application {
 
     changeView() {
         const route = this.router.resolveRoute(location.pathname);
+        if (!route) return;
         this.currentView = new route.view(route);
     }
 }
