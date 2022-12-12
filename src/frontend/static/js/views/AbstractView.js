@@ -60,5 +60,6 @@ export default class {
             element.innerHTML = this.html;
         }
         console.log(`Finishesd loading resourcses of ${templateName} view.`);
+        this.init?.();
     }
 }
