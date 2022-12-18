@@ -1,4 +1,4 @@
-import * as Environment from "../../const/Environment.js";
+import * as Environment from "../const/Environment.js";
 
 export default class {
     templateName;

@@ -1,3 +1,4 @@
 import * as shell from 'shelljs';
 
-shell.cp('-R', 'src/views', 'dist/');
+shell.mkdir('dist/frontend');
+shell.cp('-R', 'src/frontend/static', 'dist/frontend/static');
