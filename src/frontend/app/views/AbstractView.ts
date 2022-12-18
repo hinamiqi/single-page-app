@@ -1,32 +1,30 @@
-import * as Environment from "../const/Environment.js";
+import * as Environment from '../const/Environment';
+import { IRoute } from '../models/route';
+import { IView } from '../models/view';
 
-export default class {
-    templateName;
+export default abstract class implements IView {
+    templateName: string;
 
-    html;
+    html: string;
 
-    childRoute;
+    childRoute: IRoute;
 
-    childView;
+    childView: IView;
 
-    isParent;
+    isParent: boolean;
 
-    isChild;
+    parameters: any;
 
-    params;
-
-    constructor(route) {
+    constructor(route: IRoute) {
         this.templateName = route.template;
-        this.isChild = route.isChild;
         this.parameters = route.parameters;
-        console.log("Loading constructor of " + this.templateName + " view");
+        console.log('Loading constructor of ' + this.templateName + ' view');
         if (this.parameters) {
-            console.log("View " + this.templateName + " received parameters: ", this.parameters);
+            console.log('View ' + this.templateName + ' received parameters: ', this.parameters);
         }
         this.loadResources(this.templateName);
         if (route.child) {
             this.isParent = true;
-            route.child.isChild = true;
             this.childRoute = route.child;
             if (this.parameters) {
                 route.child.parameters = this.parameters;
@@ -35,7 +33,9 @@ export default class {
         }
     }
 
-    resources$(templateName) {
+    abstract init(): void
+
+    private resources$(templateName: string): Promise<Response> {
         if (!templateName) templateName = this.templateName;
         return fetch(`${Environment.staticUrl}html/${templateName}.html`)
             .then((response) => {
@@ -46,16 +46,16 @@ export default class {
             });
     }
 
-    async loadResources(templateName) {
+    private async loadResources(templateName: string): Promise<void> {
         console.log(`Start loading resourcses of ${templateName} view...`);
         const resources = await this.resources$(templateName);
         this.html = await resources.text();
 
         if (this.isParent) {
-            this.html = this.html.replace(`<div id="child"></div>`, `<div id="${this.childRoute.template}"></div>`);
+            this.html = this.html.replace('<div id="child"></div>', `<div id="${this.childRoute.template}"></div>`);
         }
 
-        const element = document.querySelector("#" + templateName);
+        const element = document.querySelector('#' + templateName);
         if (element) {
             element.innerHTML = this.html;
         }
