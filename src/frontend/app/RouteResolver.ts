@@ -1,7 +1,7 @@
-import ApplicationView from './views/ApplicationView';
-import PostsView from './views/PostsView';
-import ContactsView from './views/ContactsView';
-import AboutMeView from './views/AboutMeView';
+import ApplicationView from './views/ApplicationView.js';
+import PostsView from './views/PostsView.js';
+import ContactsView from './views/ContactsView.js';
+import AboutMeView from './views/AboutMeView.js';
 
 import { IRoute } from './models/route';
 

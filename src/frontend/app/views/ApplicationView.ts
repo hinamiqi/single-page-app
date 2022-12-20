@@ -1,5 +1,5 @@
 import { IRoute } from '../models/route';
-import AbstractView from './AbstractView';
+import AbstractView from './AbstractView.js';
 
 export default class extends AbstractView {
     constructor(route: IRoute) {

@@ -1,4 +1,4 @@
-import * as Environment from '../const/Environment';
+import * as Environment from '../const/Environment.js';
 import { IRoute } from '../models/route';
 import { IView } from '../models/view';
 
