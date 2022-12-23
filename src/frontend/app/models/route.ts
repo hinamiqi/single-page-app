@@ -5,6 +5,4 @@ export interface IRoute {
     isParent?: boolean;
     child?: IRoute;
     parameters?: any;
-
-    result?: any;
 }

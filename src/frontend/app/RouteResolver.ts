@@ -59,8 +59,8 @@ export class RouteResolver {
         ];
     }
 
-    getParams(route: IRoute): Record<string, string> {
-        const values = route.result.slice(1);
+    getParams(route: IRoute, result: RegExpMatchArray): Record<string, string> {
+        const values = result.slice(1);
         if (!values.length) return;
 
         const keys = Array.from(route.path.matchAll(/:(\w+)/g)).map(result => result[1]);
@@ -75,17 +75,15 @@ export class RouteResolver {
     }
 
     resolveRoute(url: string): IRoute {
-        const match = this.routes.find(r => {
-            //FIXME remove `result` from `IRoute`!
-            r.result = location.pathname.match(this.pathToRegex(r.path));
-            return r.result;
-        });
+        let match: IRoute;
+        for (const route of this.routes) {
+            const result = location.pathname.match(this.pathToRegex(route.path));
+            if (!result) continue;
 
-        if (!match) return;
-
-        match.parameters = this.getParams(match);
-
-        this.currentUrl = url;
+            this.currentUrl = url;
+            match = { ...route, parameters:this.getParams(route, result) };
+            break;
+        }
         return match;
     }
 }
