@@ -81,7 +81,7 @@ export class RouteResolver {
             if (!result) continue;
 
             this.currentUrl = url;
-            match = { ...route, parameters:this.getParams(route, result) };
+            match = { ...route, parameters: this.getParams(route, result) };
             break;
         }
         return match;

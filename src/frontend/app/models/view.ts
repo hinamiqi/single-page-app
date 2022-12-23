@@ -6,5 +6,5 @@ export interface IView {
     childRoute: IRoute;
     childView: IView;
     isParent: boolean;
-    parameters: any;
+    parameters: Record<string, string>;
 }

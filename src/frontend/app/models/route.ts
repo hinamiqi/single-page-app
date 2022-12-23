@@ -1,8 +1,10 @@
+import AbstractView from '../views/AbstractView';
+
 export interface IRoute {
     path?: string;
-    view: any;
+    view: new (route: IRoute) => AbstractView;
     template: string;
     isParent?: boolean;
     child?: IRoute;
-    parameters?: any;
+    parameters?: Record<string, string>;
 }

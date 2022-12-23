@@ -13,7 +13,7 @@ export default abstract class implements IView {
 
     isParent: boolean;
 
-    parameters: any;
+    parameters: Record<string, string>;
 
     constructor(route: IRoute) {
         this.templateName = route.template;

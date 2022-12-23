@@ -6,6 +6,10 @@ export default class extends AbstractView {
         super(route);
     }
 
+    static factory(route: IRoute): AbstractView {
+        return new this(route);
+    }
+
     init(): void {
         console.log('ApplicationView initialized');
     }
