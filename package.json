@@ -9,6 +9,7 @@
     "copy-assets": "ts-node --esm tools/copyAssets",
     "lint": "eslint -c .eslintrc.json --parser tsconfig.json --fix",
     "tsc": "tsc",
+    "prebuild": "npm install",
     "build": "npm-run-all clean lint copy-assets tsc",
     "start": "node .",
     "dev:start": "npm-run-all build start",
