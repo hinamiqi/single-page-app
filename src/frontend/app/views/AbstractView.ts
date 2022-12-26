@@ -55,7 +55,7 @@ export default abstract class implements IView {
             this.html = this.html.replace('<div id="child"></div>', `<div id="${this.childRoute.template}"></div>`);
         }
 
-        const element = document.querySelector('#' + templateName);
+        const element = document.querySelector('#' + templateName) || document.querySelector('#root');
         if (element) {
             element.innerHTML = this.html;
         }
