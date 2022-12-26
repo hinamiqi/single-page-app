@@ -36,14 +36,19 @@ export default abstract class implements IView {
     abstract init(): void
 
     private resources$(templateName: string): Promise<Response> {
+        console.log(this.getServerUrl());
         if (!templateName) templateName = this.templateName;
-        return fetch(`${Environment.staticUrl}html/${templateName}.html`)
+        return fetch(`${this.getServerUrl()}static/html/${templateName}.html`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error: ${response.status}`);
                 }
                 return response;
             });
+    }
+
+    private getServerUrl(): string {
+        return document.URL.replace(/([^:]+:\/\/[^\\/]+\/).+/, '$1');
     }
 
     private async loadResources(templateName: string): Promise<void> {
