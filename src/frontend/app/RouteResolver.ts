@@ -2,6 +2,7 @@ import ApplicationView from './views/ApplicationView.js';
 import PostsView from './views/PostsView.js';
 import ContactsView from './views/ContactsView.js';
 import AboutMeView from './views/AboutMeView.js';
+import PlutoView from './views/PlutoView.js';
 
 import { IRoute } from './models/route';
 
@@ -55,6 +56,11 @@ export class RouteResolver {
                     view: ContactsView,
                     template: 'contacts'
                 }
+            },
+            {
+                path: '/pluto',
+                view: PlutoView,
+                template: 'pluto',
             },
         ];
     }

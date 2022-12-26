@@ -1,0 +1,26 @@
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.main {
+    width: 100vw;
+    z-index: 99;
+    position: absolute;
+    top: 20vw;
+
+    height: 40%;
+    overflow: auto;
+
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+}
+
+  header {
+    grid-column: 2 / span 4;
+  }
+
+  section {
+    grid-column: 2 / 5;
+  }
